@@ -50,7 +50,7 @@ const CartItem = ({ onContinueShopping, onDeleteItem }) => {
     dispatch(removeItem({ name: item.name }));
     // alert("CartItem: handleRemove entered");
 
-    onDeleteItem(item);
+    onDeleteItem(item, false);
 
   };
 
