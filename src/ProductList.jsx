@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+
 import './ProductList.css'
 import CartItem from './CartItem';
 import { addItem, removeItem, updateQuantity } from './CartSlice';
@@ -7,6 +9,7 @@ function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
     const [addedToCart, setAddedToCart] = useState({});
+    const dispatch = useDispatch();
 
     const handleAddToCart = (product) => {
         dispatch(addItem(product)); // Dispatch the action to add the product to the cart (Redux action)
@@ -15,6 +18,8 @@ function ProductList({ onHomeClick }) {
           ...prevState, // Spread the previous state to retain existing entries
           [product.name]: true, // Set the current product's name as a key with value 'true' to mark it as added
         }));
+
+        // alert("handleAddToCart")
       };
 
     const plantsArray = [
@@ -303,12 +308,20 @@ function ProductList({ onHomeClick }) {
                         {/* Display other plant details like description and cost */}
                         <div className="product-description">{plant.description}</div> {/* Display plant description */}
                         <div className="product-cost">${plant.cost}</div> {/* Display plant cost */}
+                        { !addedToCart[plant.name] ?
                         <button
                             className="product-button"
                             onClick={() => handleAddToCart(plant)} // Handle adding plant to cart
                         >
                         Add to Cart
                         </button>
+                        :
+                        <button
+                            className="product-button.added-to-cart"                            
+                        >
+                        Added to Cart
+                        </button>
+                        }
                         </div>
                     ))}
                     </div>
