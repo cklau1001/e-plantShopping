@@ -28,6 +28,14 @@ function ProductList({ onHomeClick }) {
         // alert("handleAddToCart")
       };
 
+    const updateProductInCart = (product) => {
+        setAddedToCart((prevState) => ({
+            ...prevState,
+            [product.name]: false,
+        }
+        ));
+    }  
+
     const plantsArray = [
         {
             category: "Air Purifying Plants",
@@ -336,7 +344,7 @@ function ProductList({ onHomeClick }) {
 
                 </div> // product-grid
             ) : (
-                <CartItem onContinueShopping={handleContinueShopping} />
+                <CartItem onContinueShopping={handleContinueShopping}  onDeleteItem={updateProductInCart} />
             )}
         </div>
     );
